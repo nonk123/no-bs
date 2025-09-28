@@ -1,0 +1,9 @@
+apiVersion: v2
+type: application
+name: no-bs
+version: 0.1.0
+description: An orchestrated VLESS+REALITY deployment with a configurable list of users
+home: https://github.com/nonk123/no-bs
+keywords: [xray, reality, vless, vpn]
+maintainers:
+  - { name: nonk, email: me@nonk.dev, url: https://nonk.dev }

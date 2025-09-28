@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-no-bs-config
+data:
+  server.json: |
+    {
+      "log": {
+        "loglevel": {{ .Values.logLevel | default "debug" | quote }}
+      },
+      "outbounds": [
+        { "tag": "direct", "protocol": "freedom" }
+      ],
+      "inbounds": [
+        {
+          "port": {{ required "You must specify an inbound port" .Values.port }},
+          "protocol": "vless",
+          "settings": {
+            "clients": [
+            {{ range $index, $user := required "You must specify a list of user IDs" .Values.users -}}
+              {{ if $index }}, {{ else }}  {{ end -}}
+              { "id": {{ required "User needs an ID" $user.id | quote }},
+                "flow": "xtls-rprx-vision" }
+            {{ end -}}
+            ],
+            "decryption": "none"
+          },
+          "streamSettings": {
+            "network": "tcp",
+            "security": "reality",
+            "realitySettings": {
+              "dest": {{ required "REALITY needs a spoofing target to work" .Values.realityTarget | quote }},
+              "serverNames": [ {{ .Values.realityServerName | default .Values.realityTarget | quote }} ],
+              "privateKey": {{ required "You must specify a private key for REALITY" .Values.privateKey | quote }},
+              "shortIds": [""]
+            }
+          },
+          "sniffing": {
+            "enabled": true,
+            "routeOnly": true,
+            "destOverride": ["http", "tls", "quic"]
+          }
+        }
+      ]
+    }

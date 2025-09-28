@@ -1,0 +1,44 @@
+{{ $defaultVer := "25.9.11" }}
+{{ $cfgDir := "/usr/local/etc/xray" }}
+{{ $cfgFile := "no-bs.json" }}
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: {{ .Release.Name }}-no-bs-xray
+spec:
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-no-bs-xray
+  template:
+    metadata:
+      labels:
+        name: {{ .Release.Name }}-no-bs-xray
+    spec:
+      terminationGracePeriodSeconds: 10
+      tolerations: # see: <https://kubernetes.io/docs/concepts/workloads/controllers/daemonset>
+        - key: node-role.kubernetes.io/control-plane
+          operator: Exists
+          effect: NoSchedule
+        - key: node-role.kubernetes.io/master
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: no-bs-xray
+          image: ghcr.io/xtls/xray-core:{{ .Values.XrayVer | default $defaultVer }}
+          command:
+            - /usr/local/bin/xray
+            - -c
+            - {{ print $cfgDir "/" $cfgFile | quote }}
+          ports:
+            - containerPort: {{ .Values.port }}
+          volumeMounts:
+            - name: config
+              mountPath: {{ $cfgDir | quote }}
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}-no-bs-config
+            items:
+              - { key: server.json, path: {{ $cfgFile | quote }} }
