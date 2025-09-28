@@ -25,6 +25,8 @@
         <h2><code>values.yml</code> generator</h2>
         <div class="cols">
             <div id="inputs">
+                <label for="host">Server host</label>
+                <input id="host" type="text">
                 <label for="port">Inbound port</label>
                 <input id="port" type="number" value="443">
                 <label for="private-key">Private key</label>
@@ -46,13 +48,6 @@
         <div>
             <p>Users: <button onclick="addUser()">➕</button></p>
             <table id="users">
-                <thead>
-                    <tr>
-                        <td>🗑️</td>
-                        <td>UUID</td>
-                        <td>Config URL</td>
-                    </tr>
-                </thead>
                 <tbody></tbody>
             </table>
         </div>

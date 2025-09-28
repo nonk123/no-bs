@@ -71,24 +71,47 @@ async function randomizeKeyPair() {
 }
 
 function generateAll() {
+    const host = document.getElementById("host").value;
+    const port = document.getElementById("port").value;
+
+    const privateKey = document.getElementById("private-key").value;
+    const publicKey = document.getElementById("public-key").value;
+
+    const realityTarget = document.getElementById("reality-target").value;
+    const realityServerName = document.getElementById(
+        "reality-server-name"
+    ).value;
+
     let yml = "logLevel: info\n";
-    yml += `port: ${document.getElementById("port").value}\n`;
-    yml += `realityTarget: ${
-        document.getElementById("reality-target").value
-    }\n`;
-    yml += `realityServerName: ${
-        document.getElementById("reality-server-name").value
-    }\n`;
-    yml += `privateKey: ${document.getElementById("private-key").value}\n`;
+    yml += `port: ${port}\n`;
+    yml += `realityTarget: ${realityTarget}\n`;
+    yml += `realityServerName: ${realityServerName}\n`;
+    yml += `privateKey: ${privateKey}\n`;
     yml += "users:\n";
 
-    const shebang = "";
+    const realityHostname = new URL(realityTarget).hostname;
+    const reality = `sni=${realityServerName}&type=tcp&alpn=http%2F1.1&host=${realityHostname}&encryption=none`;
+    const params = `${reality}&flow=xtls-rprx-vision&security=reality&pbk=${publicKey}`;
+    const shebang = `${host}:${port}/?${params}`;
+
     for (const row of usersTable().children) {
         const id = row.children[1].textContent;
         yml += `  - id: ${id}\n`;
 
-        const vless = `vless://${id}/${shebang}\n`;
-        row.children[2].textContent = vless;
+        const anchor = document.createElement("a");
+        anchor.href = `vless://${id}@${shebang}`;
+        anchor.textContent = "VLESS URL";
+
+        const copy = document.createElement("button");
+        copy.addEventListener("click", () => {
+            navigator.clipboard.writeText(anchor.href);
+        });
+        copy.textContent = "📋";
+
+        const linky = row.children[2];
+        linky.innerHTML = "";
+        linky.append(anchor, " ", copy);
     }
+
     document.getElementById("values-yml-output").value = yml;
 }
