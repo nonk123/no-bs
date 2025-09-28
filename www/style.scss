@@ -1,0 +1,82 @@
+:root {
+    color-scheme: only light;
+}
+
+body,
+html {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.rows,
+.cols {
+    display: flex;
+    gap: 1em;
+}
+.cols {
+    flex-flow: row wrap;
+}
+.rows {
+    flex-flow: column wrap;
+}
+
+#outputs {
+    flex: 0 1 400px;
+}
+#inputs {
+    flex: 0 1 200px;
+}
+
+label {
+    display: block;
+    width: 100%;
+}
+input {
+    width: 100%;
+    margin-bottom: 1ex;
+}
+textarea {
+    width: 100%;
+}
+
+label::after {
+    content: ":";
+}
+
+h1 {
+    margin: 0;
+}
+h2 {
+    margin-top: 0;
+}
+
+header,
+footer,
+main {
+    padding: 12px;
+}
+
+main {
+    flex-grow: 1;
+}
+
+footer {
+    text-align: end;
+}
+
+#values-yml-output {
+    min-height: 200px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td,
+th {
+    padding: 5px;
+}

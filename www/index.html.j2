@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="sanity">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="robots" content="index, follow">
+
+    <title>no-bs.ru</title>
+    <meta name="description" content="{# TODO: describe #}" />
+    <link rel="canonical" href="https://no-bs.ru" />
+    <link rel="icon" type="image/png" href="/favicon.png" /> {# TODO: add an icon #}
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/generator.js"></script>
+</head>
+
+<body class="rows">
+    <header>
+        <h1>no-bs.ru</h1>
+    </header>
+    <main>
+        <h2><code>values.yml</code> generator</h2>
+        <div class="cols">
+            <div id="inputs">
+                <label for="port">Inbound port</label>
+                <input id="port" type="number" value="443">
+                <label for="private-key">Private key</label>
+                <input id="private-key" type="text" readonly>
+                <label for="public-key">Public key</label>
+                <input id="public-key" type="text" readonly>
+                <label for="reality-target">REALITY spoofing target</label>
+                <input id="reality-target" type="text" value="https://presearch.com">
+                <label for="reality-server-name">REALITY TLS domain name</label>
+                <input id="reality-server-name" type="text" value="presearch.com">
+            </div>
+            <div id="outputs" class="rows">
+                <div style="flex-basis: 200px;">
+                    <label for="values-yml-output"><code>values.yml</code></label>
+                    <textarea id="values-yml-output" readonly></textarea>
+                </div>
+            </div>
+        </div>
+        <div>
+            <p>Users: <button onclick="addUser()">➕</button></p>
+            <table id="users">
+                <thead>
+                    <tr>
+                        <td>🗑️</td>
+                        <td>UUID</td>
+                        <td>Config URL</td>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+        <a href="https://github.com/nonk123/no-bs">source code</a>
+    </footer>
+</body>
+
+</html>
