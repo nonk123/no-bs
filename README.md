@@ -51,3 +51,22 @@ You can use VLESS UUID mapping feature to give your users a name:
 ```sh
 xray uuid -i "your epic name"
 ```
+
+## Import Existing Users from Hiddify
+
+You can gather user IDs from Hiddify for use in `values.yml`. Here's how:
+
+1. Create a Hiddify config backup in JSON format.
+2. Feed the file into [`hiddify-import.py`](hiddify-import.py), e.g. on Linux:
+
+   ```sh
+   python hiddify-import.py < hiddify-backup.json
+   ```
+
+   Or on Windows:
+
+   ```pwsh
+   cat hiddify-backup.json | py hiddify-import.py
+   ```
+
+3. The script should output a chunk of YAML with the `users` field that you can paste into `values.yml`.
