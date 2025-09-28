@@ -16,7 +16,7 @@ Once you have K3S or another K8S distribution running, you will need to write a 
 2. The list of UUIDs each corresponding to a user of your tunnel. There is nothing wrong with using a single UUID e.g. for everyone in your family, but it makes more sense logistically to group these per-person or even per-person per-device in case you want to revoke somebody's access (read: ground them) without breaking all other connections.
 
    You can generate a UUID by running `C:\Path\to\xray.exe uuid`, or by using a shady website such as this one: <https://www.uuidgenerator.net/version4>.
-3. You will also need to specify: a port to listen on (most commonly `443` to disguise traffic as TLS), a spoofed target site *that support TLS1.3 and h2*[^tls], and a server name that matches one in the site's TLS certificate. If you aren't sure what we're talking about--I ain't neither! So feel free to use the defaults provided in this README.
+3. You will also need to specify: a port to listen on (most commonly `443` to disguise traffic as TLS), a spoofed target site *that supports TLS1.3 and h2*[^tls], and a server name that matches one in the site's TLS certificate. If you aren't sure what we're talking about--I ain't neither! So feel free to use the defaults provided in this README.
 
 All in all, your `values.yml` should look like [the provided example](values.example.yml):
 
