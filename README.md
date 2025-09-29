@@ -51,7 +51,7 @@ Once it's up, configure your [Xray client of choice](https://github.com/XTLS/Xra
 You can use VLESS UUID mapping feature to generate a user ID that is equivalent to the username specified in this invocation:
 
 ```sh
-xray uuid -i "your epic name"
+xray uuid -i "your epic name 🗣️🔥"
 ```
 
 This means the client would use `your epic name` for their UUID instead of the usual incomprehensible blob. And as far as I am aware, this supports Unicode too--go crazy with emojis!
