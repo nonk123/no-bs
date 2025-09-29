@@ -26,10 +26,7 @@ spec:
       containers:
         - name: no-bs-xray
           image: ghcr.io/xtls/xray-core:{{ .Values.XrayVer | default $defaultVer }}
-          command:
-            - /usr/local/bin/xray
-            - -c
-            - {{ print $cfgDir "/" $cfgFile | quote }}
+          args: [run, -c, {{ print $cfgDir "/" $cfgFile | quote }}]
           ports:
             - containerPort: {{ .Values.port }}
               hostPort: {{ .Values.port }}
