@@ -29,10 +29,13 @@
                 <input id="host" type="text">
                 <label for="port">Inbound port</label>
                 <input id="port" type="number" value="443">
-                <label for="private-key">Private key</label>
-                <input id="private-key" type="text" readonly>
+                <div>
+                    <label for="private-key">Private key</label>
+                    <button onclick="randomizeKeyPair()">🔄</button>
+                </div>
+                <input id="private-key" type="text">
                 <label for="public-key">Public key</label>
-                <input id="public-key" type="text" readonly>
+                <input id="public-key" type="text">
                 <label for="reality-target">REALITY spoofing target</label>
                 <input id="reality-target" type="text" value="https://presearch.com">
                 <label for="reality-server-name">REALITY TLS domain name</label>

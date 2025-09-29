@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
-    randomizeKeyPair();
     for (const elt of document.querySelectorAll("#inputs > input"))
         elt.addEventListener("input", generateAll);
+
+    const privateKey = document.getElementById("private-key").value;
+    const publicKey = document.getElementById("public-key").value;
+
+    if (!privateKey || !publicKey) randomizeKeyPair();
+    generateAll();
 });
 
 function usersTable() {
