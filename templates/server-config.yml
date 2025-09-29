@@ -8,6 +8,10 @@ data:
       "log": {
         "loglevel": {{ .Values.logLevel | default "debug" | quote }}
       },
+      "dns": {
+        "servers": ["1.1.1.1", "8.8.4.4", "8.8.8.8"],
+        "queryStrategy": "UseIPv4"
+      }
       "outbounds": [
         { "tag": "direct", "protocol": "freedom" }
       ],
