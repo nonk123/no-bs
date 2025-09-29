@@ -18,6 +18,8 @@ spec:
         reroll: {{ randAlphaNum 5 | quote }}
     spec:
       terminationGracePeriodSeconds: 10
+      nodeSelector:
+        no-bs: notin (cap)
       tolerations: # see: <https://kubernetes.io/docs/concepts/workloads/controllers/daemonset>
         - key: node-role.kubernetes.io/control-plane
           operator: Exists

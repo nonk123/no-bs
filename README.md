@@ -47,6 +47,16 @@ Once it's up, configure your [Xray client of choice](https://github.com/XTLS/Xra
 
 ## Tips and Tricks
 
+### Excluding Nodes from VPN hosting
+
+You can exclude a node from hosting no-bs by adding label `no-bs=cap`:
+
+```sh
+kubectl label nodes <your-node-name> no-bs=cap
+```
+
+No 🧢 allowed.
+
 ### Fancy Usernames
 
 You can use VLESS UUID mapping feature to generate a user ID that is equivalent to the username specified in this invocation:
