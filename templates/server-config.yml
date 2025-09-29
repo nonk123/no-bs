@@ -20,14 +20,15 @@ data:
           "port": {{ required "You must specify an inbound port" .Values.port }},
           "protocol": "vless",
           "settings": {
+            "decryption": "none",
+            "fallbacks": [],
             "clients": [
             {{ range $index, $user := required "You must specify a list of user IDs" .Values.users -}}
               {{ if $index }}, {{ else }}  {{ end -}}
               { "id": {{ required "User needs an ID" $user.id | quote }},
                 "flow": "xtls-rprx-vision" }
             {{ end -}}
-            ],
-            "decryption": "none"
+            ]
           },
           "streamSettings": {
             "network": "tcp",
@@ -37,6 +38,10 @@ data:
               "serverNames": [ {{ .Values.realityServerName | default .Values.realityTarget | quote }} ],
               "privateKey": {{ required "You must specify a private key for REALITY" .Values.privateKey | quote }},
               "shortIds": [""]
+            },
+            "sockopt": {
+                "acceptProxyProtocol": true,
+                "tcpFastOpen": true
             }
           },
           "sniffing": {
