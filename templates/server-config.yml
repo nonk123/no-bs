@@ -40,9 +40,13 @@ data:
             }
           },
           "sniffing": {
+            {{ if .Values.enableSniffing -}}
             "enabled": true,
             "routeOnly": true,
             "destOverride": ["http", "tls", "quic"]
+            {{- else -}}
+            "enabled": false
+            {{- end }}
           }
         }
       ]
