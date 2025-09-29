@@ -10,7 +10,7 @@ data:
       },
       "dns": {
         "servers": ["1.1.1.1", "8.8.4.4", "8.8.8.8"],
-        "queryStrategy": "UseIPv4"
+        "queryStrategy": {{ .Values.dnsQueryStrategy | default "UseIPv4" | quote }}
       },
       "outbounds": [
         { "tag": "direct", "protocol": "freedom" }
