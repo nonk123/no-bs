@@ -1,6 +1,6 @@
 # no-bs
 
-TODO: explain.
+BS-free distributed Xray+VLESS+REALITY for k8s.
 
 ## Getting Started
 
