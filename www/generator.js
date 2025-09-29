@@ -140,7 +140,7 @@ function generateAll() {
     yml += `realityTarget: ${realityTarget}\n`;
     yml += `realityServerName: ${realityServerName}\n`;
     yml += `privateKey: ${privateKey}\n`;
-    yml += "users:\n";
+    yml += "users:" + (usersTable().children.length ? "\n" : " []");
 
     for (const row of usersTable().children) {
         const id = row.children[1].textContent;
