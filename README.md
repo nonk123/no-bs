@@ -56,7 +56,7 @@ xray uuid -i "your epic name 🗣️🔥"
 
 This means the client would use `your epic name` for their UUID instead of the usual incomprehensible blob. And as far as I am aware, this supports Unicode too--go crazy with emojis!
 
-### Import Existing Users from Hiddify
+### Import Existing Users from [Hiddify](https://hiddify.com)
 
 You can gather user IDs from Hiddify for use in `values.yml`. Here's how:
 
