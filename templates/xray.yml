@@ -25,17 +25,11 @@ spec:
         - key: node-role.kubernetes.io/master
           operator: Exists
           effect: NoSchedule
+      hostNetwork: true
       containers:
         - name: no-bs-xray
           image: ghcr.io/xtls/xray-core:{{ .Values.XrayVer | default $defaultVer }}
           args: [-c, {{ print $cfgDir "/" $cfgFile | quote }}]
-          ports:
-            - containerPort: {{ .Values.port }}
-              hostPort: {{ .Values.port }}
-              protocol: TCP
-            - containerPort: {{ .Values.port }}
-              hostPort: {{ .Values.port }}
-              protocol: UDP
           volumeMounts:
             - name: config
               mountPath: {{ $cfgDir | quote }}
