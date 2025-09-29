@@ -1,4 +1,5 @@
 {% set default_target = "presearch.com" %}
+{% set github = "https://github.com/nonk123/no-bs" %}
 
 <!DOCTYPE html>
 
@@ -21,10 +22,13 @@
 
 <body class="rows nowrap nogap">
     <header>
-        <a target="_blank" href="https://github.com/nonk123/no-bs" id="title">no-bs.ru</a>
+        <a target="_blank" href="{{ github }}" id="title">no-bs.ru</a>
     </header>
     <main>
         <h1>no-bs utilities</h1>
+        <p>If you aren't sure what any of this is,
+            <a target="_blank" href="{{ github }}/#no-bs">check out the project's README</a>.
+        </p>
         <h2 id="values-yml-generator">values.yml generator</h2>
         <div class="cols">
             <div id="values-yml-inputs">
@@ -70,7 +74,7 @@
         </div>
     </main>
     <footer>
-        <a target="_blank" href="https://github.com/nonk123/no-bs">source code</a>
+        <a target="_blank" href="{{ github }}">source code</a>
     </footer>
 </body>
 
