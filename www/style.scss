@@ -9,6 +9,8 @@ html {
 }
 
 body {
+    display: flex;
+    flex-flow: column nowrap;
     min-height: 100vh;
 }
 
@@ -51,10 +53,11 @@ label::after {
 }
 
 h1 {
-    margin: 0;
-}
-h2 {
     margin-top: 0;
+}
+#title {
+    font-size: 2em;
+    font-weight: bold;
 }
 
 header,
