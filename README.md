@@ -31,6 +31,7 @@ realityServerName: presearch.com
 privateKey: qDP05W-71C8VdIsVqmOsMa0CXBDFzG7e36hBZNDkAmY # xray x25519
 users:
   - id: 44bd9494-1534-4d48-b2f7-4247343bbc92 # xray uuid
+  - id: ad5069ed-c54b-4559-9773-41e106761b5b # tip: you can write down the peer's name in a comment
 ```
 
 Now you can deploy the chart with [Helm](https://helm.sh/docs/intro/quickstart) by running:
