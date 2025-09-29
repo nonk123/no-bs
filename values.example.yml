@@ -5,4 +5,3 @@ realityServerName: presearch.com
 privateKey: qDP05W-71C8VdIsVqmOsMa0CXBDFzG7e36hBZNDkAmY # xray x25519
 users:
   - id: 44bd9494-1534-4d48-b2f7-4247343bbc92 # xray uuid
-  - id: d580eae3-3c91-4401-9d6b-b4257d5e8cf6
