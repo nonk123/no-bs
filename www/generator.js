@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function getUsersDb() {
-    if (!localStorage.getItem("users")) localStorage.users = JSON.stringify([]);
+    if (!localStorage.getItem("users")) return [];
     return JSON.parse(localStorage.users);
 }
 
