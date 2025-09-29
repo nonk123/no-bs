@@ -33,11 +33,11 @@
                 <label for="port">Inbound port</label>
                 <input id="port" type="number" placeholder="443" value="443">
                 <div>
-                    <label for="private-key">Private key</label>
+                    <label for="private-key">REALITY private key</label>
                     <button onclick="randomizeKeyPair()">🔄</button>
                 </div>
                 <input id="private-key" type="text" placeholder="REALITY private key">
-                <label for="public-key">Public key</label>
+                <label for="public-key">REALITY public key</label>
                 <input id="public-key" type="text" placeholder="REALITY public key">
                 <label for="reality-target">REALITY spoofing target</label>
                 <input id="reality-target" type="text" placeholder="{{ default_target }}:443"
@@ -61,11 +61,11 @@
         <p>Before use, make sure to fill in the inputs above.</p>
         <div id="custom-vless">
             <label for="custom-id">User ID</label>
-            <input id="custom-id" type="text" oninput="updateCustomVlessLink()">
-            <label for="custom-vless-link">VLESS link</label>
+            <input id="custom-id" type="text" oninput="updateCustomVlessUrl()">
+            <label for="custom-vless-url">VLESS URL</label>
             <div class="cols nowrap">
-                <input id="custom-vless-link" type="text" placeholder="vless://" readonly>
-                <button onclick="copyCustomVlessLink()">📋</button>
+                <input id="custom-vless-url" type="text" placeholder="vless://" readonly>
+                <button onclick="copyCustomVlessUrl()">📋</button>
             </div>
         </div>
     </main>

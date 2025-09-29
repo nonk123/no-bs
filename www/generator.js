@@ -32,7 +32,7 @@ function makeUuidCell(id) {
     return cell;
 }
 
-function makeDeleteCell(row, id) {
+function makeDeleteCell(id) {
     const button = document.createElement("button");
     button.addEventListener("click", () => {
         const users = getUsersDb();
@@ -52,7 +52,7 @@ function syncUsersTable() {
     for (const id of getUsersDb()) {
         const row = document.createElement("tr");
         row.append(
-            makeDeleteCell(row, id),
+            makeDeleteCell(id),
             makeUuidCell(id),
             document.createElement("td")
         );
@@ -96,7 +96,7 @@ async function randomizeKeyPair() {
     generateAll();
 }
 
-function getVlessLink(id) {
+function getVlessUrl(id) {
     const host = document.getElementById("host").value;
     const port = document.getElementById("port").value;
     const publicKey = document.getElementById("public-key").value;
@@ -114,18 +114,18 @@ function getVlessLink(id) {
     return `vless://${id}@${shebang}`;
 }
 
-function updateCustomVlessLink() {
-    const link = getVlessLink(document.getElementById("custom-id").value);
-    document.getElementById("custom-vless-link").value = link;
+function updateCustomVlessUrl() {
+    const link = getVlessUrl(document.getElementById("custom-id").value);
+    document.getElementById("custom-vless-url").value = link;
 }
 
-function copyCustomVlessLink() {
-    const link = getVlessLink(document.getElementById("custom-id").value);
+function copyCustomVlessUrl() {
+    const link = getVlessUrl(document.getElementById("custom-id").value);
     navigator.clipboard.writeText(link);
 }
 
 function generateAll() {
-    updateCustomVlessLink();
+    updateCustomVlessUrl();
 
     const port = document.getElementById("port").value;
     const privateKey = document.getElementById("private-key").value;
@@ -148,7 +148,7 @@ function generateAll() {
 
         const anchor = document.createElement("a");
         anchor.target = "_blank";
-        anchor.href = getVlessLink(id);
+        anchor.href = getVlessUrl(id);
         anchor.textContent = "VLESS URL";
 
         const copy = document.createElement("button");
