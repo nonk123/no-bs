@@ -125,6 +125,7 @@ function generateAll() {
         yml += `  - id: ${id}\n`;
 
         const anchor = document.createElement("a");
+        anchor.target = "_blank";
         anchor.href = `vless://${id}@${shebang}`;
         anchor.textContent = "VLESS URL";
 
