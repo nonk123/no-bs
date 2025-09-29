@@ -1,3 +1,5 @@
+{% set default_target = "presearch.com" %}
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -27,20 +29,22 @@
         <div class="cols">
             <div id="values-yml-inputs">
                 <label for="host">Server host</label>
-                <input id="host" type="text">
+                <input id="host" type="text" placeholder="Node's IP address">
                 <label for="port">Inbound port</label>
-                <input id="port" type="number" value="443">
+                <input id="port" type="number" placeholder="443" value="443">
                 <div>
                     <label for="private-key">Private key</label>
                     <button onclick="randomizeKeyPair()">🔄</button>
                 </div>
-                <input id="private-key" type="text">
+                <input id="private-key" type="text" placeholder="REALITY private key">
                 <label for="public-key">Public key</label>
-                <input id="public-key" type="text">
+                <input id="public-key" type="text" placeholder="REALITY public key">
                 <label for="reality-target">REALITY spoofing target</label>
-                <input id="reality-target" type="text" value="https://presearch.com">
+                <input id="reality-target" type="text" placeholder="{{ default_target }}:443"
+                    value="{{ default_target }}:443">
                 <label for="reality-server-name">REALITY TLS domain name</label>
-                <input id="reality-server-name" type="text" value="presearch.com">
+                <input id="reality-server-name" type="text" placeholder="{{ default_target }}"
+                    value="{{ default_target }}">
             </div>
             <div id="values-yml-outputs" class="rows nogap">
                 <label for="values-yml-output"><code>values.yml</code></label>
@@ -60,7 +64,7 @@
             <input id="custom-id" type="text" oninput="updateCustomVlessLink()">
             <label for="custom-vless-link">VLESS link</label>
             <div class="cols nowrap">
-                <input id="custom-vless-link" type="text" readonly>
+                <input id="custom-vless-link" type="text" placeholder="vless://" readonly>
                 <button onclick="copyCustomVlessLink()">📋</button>
             </div>
         </div>
