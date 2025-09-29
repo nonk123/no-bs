@@ -16,15 +16,6 @@ data:
         {
           "tag": "direct",
           "protocol": "freedom"
-        },
-        {
-          "tag": "blackhole",
-          "protocol": "blackhole"
-        },
-        {
-          "tag": "dns",
-          "protocol": "dns",
-          "settings": { "port": 53 }
         }
       ],
       "inbounds": [
@@ -33,7 +24,6 @@ data:
           "protocol": "vless",
           "settings": {
             "decryption": "none",
-            "fallbacks": [],
             "clients": [
             {{ range $index, $user := required "You must specify a list of user IDs" .Values.users -}}
               {{ if $index }}, {{ else }}  {{ end -}}
@@ -43,7 +33,7 @@ data:
             ]
           },
           "streamSettings": {
-            "network": "tcp",
+            "network": "raw",
             "security": "reality",
             "realitySettings": {
               {{ if .Values.debugReality }}"show": true,{{ end }}
@@ -57,45 +47,7 @@ data:
                 "acceptProxyProtocol": true,
                 "tcpFastOpen": true
             }
-          },
-          "sniffing": {
-            {{ if .Values.enableSniffing -}}
-            "enabled": true,
-            "routeOnly": true,
-            "destOverride": ["http", "tls", "quic"]
-            {{- else -}}
-            "enabled": false
-            {{- end }}
           }
         }
-      ],
-      "routing": {
-        "domainStrategy": "IPOnDemand",
-        "domainMatcher": "hybrid",
-        "rules": [
-          {
-            "type": "field",
-            "outboundTag": "freedom",
-            "ip": ["127.0.0.1"],
-            "port": "443,80,53"
-          },
-          {
-            "type": "field",
-            "port": 53,
-            "network": "tcp,udp",
-            "outboundTag": "dns"
-          },
-          {
-            "type": "field",
-            "port": 443,
-            "network": "udp",
-            "outboundTag": "blackhole"
-          },
-          {
-            "type": "field",
-            "port": "0-65535",
-            "outboundTag": "freedom"
-          }
-        ]
-      }
+      ]
     }
