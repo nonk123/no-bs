@@ -37,20 +37,21 @@ body {
     flex-direction: column;
 }
 
-#outputs {
-    flex: 0 1 400px;
-}
-#inputs {
+#values-yml-inputs {
     flex: 0 1 240px;
 }
-
-#values-yml-output {
-    flex-grow: 1;
+#values-yml-outputs {
+    flex: 0 1 400px;
+    min-height: 300px;
+}
+#custom-vless {
+    max-width: 400px;
 }
 
 input {
-    width: 100%;
+    display: block;
     margin-bottom: 1ex;
+    width: 100%;
 }
 textarea {
     display: block;
@@ -62,9 +63,10 @@ textarea {
     border: 1px solid black;
     padding: 5px;
     border-radius: 5px;
+    flex-grow: 1;
 }
 
-#inputs > div {
+#values-yml-inputs > div {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;

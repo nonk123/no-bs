@@ -22,9 +22,10 @@
         <a target="_blank" href="https://github.com/nonk123/no-bs" id="title">no-bs.ru</a>
     </header>
     <main>
-        <h1><code>values.yml</code> generator</h1>
+        <h1>no-bs utilities</h1>
+        <h2 id="values-yml-generator">values.yml generator</h2>
         <div class="cols">
-            <div id="inputs">
+            <div id="values-yml-inputs">
                 <label for="host">Server host</label>
                 <input id="host" type="text">
                 <label for="port">Inbound port</label>
@@ -41,15 +42,28 @@
                 <label for="reality-server-name">REALITY TLS domain name</label>
                 <input id="reality-server-name" type="text" value="presearch.com">
             </div>
-            <div id="outputs" class="rows nogap">
+            <div id="values-yml-outputs" class="rows nogap">
                 <label for="values-yml-output"><code>values.yml</code></label>
                 <textarea id="values-yml-output" readonly></textarea>
             </div>
+            <div>
+                <p><button onclick="addUser()">➕</button> Users:</p>
+                <table id="users">
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
-        <p><button onclick="addUser()">➕</button> Users:</p>
-        <table id="users">
-            <tbody></tbody>
-        </table>
+        <h2 id="vless-url-generator">VLESS URL for custom user ID</h2>
+        <p>Before use, make sure to fill in the inputs above.</p>
+        <div id="custom-vless">
+            <label for="custom-id">User ID</label>
+            <input id="custom-id" type="text" oninput="updateCustomVlessLink()">
+            <label for="custom-vless-link">VLESS link</label>
+            <div class="cols nowrap">
+                <input id="custom-vless-link" type="text" readonly>
+                <button onclick="copyCustomVlessLink()">📋</button>
+            </div>
+        </div>
     </main>
     <footer>
         <a target="_blank" href="https://github.com/nonk123/no-bs">source code</a>

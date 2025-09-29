@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    for (const elt of document.querySelectorAll("#inputs > input"))
+    for (const elt of document.querySelectorAll("#values-yml-inputs > input"))
         elt.addEventListener("input", generateAll);
 
     const privateKey = document.getElementById("private-key").value;
@@ -96,12 +96,37 @@ async function randomizeKeyPair() {
     generateAll();
 }
 
-function generateAll() {
+function getVlessLink(id) {
     const host = document.getElementById("host").value;
     const port = document.getElementById("port").value;
-
-    const privateKey = document.getElementById("private-key").value;
     const publicKey = document.getElementById("public-key").value;
+    const realityTarget = document.getElementById("reality-target").value;
+    const realityServerName = document.getElementById(
+        "reality-server-name"
+    ).value;
+
+    const realityHostname = new URL(realityTarget).hostname;
+    const reality = `sni=${realityServerName}&type=tcp&alpn=http%2F1.1&host=${realityHostname}&encryption=none`;
+    const params = `${reality}&flow=xtls-rprx-vision&security=reality&pbk=${publicKey}`;
+    const shebang = `${host}:${port}/?${params}`;
+    return `vless://${id}@${shebang}`;
+}
+
+function updateCustomVlessLink() {
+    const link = getVlessLink(document.getElementById("custom-id").value);
+    document.getElementById("custom-vless-link").value = link;
+}
+
+function copyCustomVlessLink() {
+    const link = getVlessLink(document.getElementById("custom-id").value);
+    navigator.clipboard.writeText(link);
+}
+
+function generateAll() {
+    updateCustomVlessLink();
+
+    const port = document.getElementById("port").value;
+    const privateKey = document.getElementById("private-key").value;
 
     const realityTarget = document.getElementById("reality-target").value;
     const realityServerName = document.getElementById(
@@ -115,18 +140,13 @@ function generateAll() {
     yml += `privateKey: ${privateKey}\n`;
     yml += "users:\n";
 
-    const realityHostname = new URL(realityTarget).hostname;
-    const reality = `sni=${realityServerName}&type=tcp&alpn=http%2F1.1&host=${realityHostname}&encryption=none`;
-    const params = `${reality}&flow=xtls-rprx-vision&security=reality&pbk=${publicKey}`;
-    const shebang = `${host}:${port}/?${params}`;
-
     for (const row of usersTable().children) {
         const id = row.children[1].textContent;
         yml += `  - id: ${id}\n`;
 
         const anchor = document.createElement("a");
         anchor.target = "_blank";
-        anchor.href = `vless://${id}@${shebang}`;
+        anchor.href = getVlessLink(id);
         anchor.textContent = "VLESS URL";
 
         const copy = document.createElement("button");

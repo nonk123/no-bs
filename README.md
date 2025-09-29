@@ -5,7 +5,7 @@ TODO: explain.
 ## Getting Started
 
 > [!TIP]
-> There is a [**`values.yml` generator**](https://no-bs.ru) available in case you can't be assed to read through all this.
+> There is a [**`values.yml` generator**](https://no-bs.ru/#values-yml-generator) available in case you can't be assed to read through all this.
 
 To get started, you will need a K8S cluster managing at least one single VPS node. If you aren't sure what any of these words mean, you can quickly deploy such a cluster on the cheapest Linux VPS node you can find by running [the K3S installer](https://docs.k3s.io/quick-start), which is a K8S distribution I would personally recommend:
 
@@ -40,9 +40,7 @@ git clone https://github.com/nonk123/no-bs.git
 helm install -f values.yml my-instance ./no-bs
 ```
 
-And once it's up, add the configured instance to your Xray client (...)
-
-TODO: explain client configuration.
+Once it's up, configure your Xray client to point it to your no-bs instance. The easiest way to do this is by a VLESS URL, which you can [**generate with our tool**](https://no-bs.ru/#vless-url-generator).
 
 [^tls]: <https://github.com/XTLS/Xray-examples/blob/97d7f1ee192e9bb3bf07f165ee1af8ca12214fa3/VLESS-TCP-XTLS-Vision-REALITY/config_server.jsonc#L22>
 
