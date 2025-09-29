@@ -6,13 +6,7 @@ data:
   server.json: |
     {
       "log": {
-        "loglevel": {{ .Values.logLevel | default "critical" | quote }},
-        "output": "none",
-        "error": "none",
-        "access": "none",
-        "dnsLog": false,
-        "logid": true,
-        "header": true
+        "loglevel": {{ .Values.logLevel | default "critical" | quote }}
       },
       "dns": {
         "servers": ["1.1.1.1", "localhost"],
