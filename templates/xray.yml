@@ -32,6 +32,11 @@ spec:
             - {{ print $cfgDir "/" $cfgFile | quote }}
           ports:
             - containerPort: {{ .Values.port }}
+              hostPort: {{ .Values.port }}
+              protocol: TCP
+            - containerPort: {{ .Values.port }}
+              hostPort: {{ .Values.port }}
+              protocol: UDP
           volumeMounts:
             - name: config
               mountPath: {{ $cfgDir | quote }}
