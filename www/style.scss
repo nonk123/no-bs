@@ -8,29 +8,44 @@ html {
     margin: 0;
 }
 
+* {
+    box-sizing: border-box;
+}
+
 body {
-    display: flex;
-    flex-flow: column nowrap;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
 }
 
 .rows,
 .cols {
     display: flex;
-    gap: 1em;
+    &:not(.nogap) {
+        gap: 1em;
+    }
+    &.nowrap {
+        flex-wrap: nowrap;
+    }
+    &:not(.nowrap) {
+        flex-wrap: wrap;
+    }
 }
 .cols {
-    flex-flow: row wrap;
+    flex-direction: row;
 }
 .rows {
-    flex-flow: column wrap;
+    flex-direction: column;
 }
 
 #outputs {
     flex: 0 1 400px;
 }
 #inputs {
-    flex: 0 1 200px;
+    flex: 0 1 240px;
+}
+
+#values-yml-output {
+    flex-grow: 1;
 }
 
 input {
@@ -38,7 +53,15 @@ input {
     margin-bottom: 1ex;
 }
 textarea {
+    display: block;
     width: 100%;
+    resize: none;
+}
+input,
+textarea {
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 #inputs > div {
@@ -72,10 +95,6 @@ main {
 
 footer {
     text-align: end;
-}
-
-#values-yml-output {
-    min-height: 200px;
 }
 
 table {

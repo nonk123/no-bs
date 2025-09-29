@@ -17,7 +17,7 @@
     <script src="/generator.js"></script>
 </head>
 
-<body>
+<body class="rows nowrap nogap">
     <header>
         <span id="title">no-bs.ru</span>
     </header>
@@ -41,19 +41,15 @@
                 <label for="reality-server-name">REALITY TLS domain name</label>
                 <input id="reality-server-name" type="text" value="presearch.com">
             </div>
-            <div id="outputs" class="rows">
-                <div style="flex-basis: 200px;">
-                    <label for="values-yml-output"><code>values.yml</code></label>
-                    <textarea id="values-yml-output" readonly></textarea>
-                </div>
+            <div id="outputs" class="rows nogap">
+                <label for="values-yml-output"><code>values.yml</code></label>
+                <textarea id="values-yml-output" readonly></textarea>
             </div>
         </div>
-        <div>
-            <p>Users: <button onclick="addUser()">➕</button></p>
-            <table id="users">
-                <tbody></tbody>
-            </table>
-        </div>
+        <p><button onclick="addUser()">➕</button> Users:</p>
+        <table id="users">
+            <tbody></tbody>
+        </table>
     </main>
     <footer>
         <a href="https://github.com/nonk123/no-bs">source code</a>
