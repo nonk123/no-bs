@@ -40,7 +40,7 @@ git clone https://github.com/nonk123/no-bs.git
 helm install -f values.yml my-instance ./no-bs
 ```
 
-Once it's up, configure your Xray client to point it to your no-bs instance. The easiest way to do this is by a VLESS URL, which you can [**generate with our tool**](https://no-bs.ru/#vless-url-generator).
+Once it's up, configure your [Xray client of choice](https://github.com/XTLS/Xray-core#gui-clients) to point it to your no-bs instance. The easiest way to do this is by a VLESS URL, which you can [**generate with our tool**](https://no-bs.ru/#vless-url-generator).
 
 [^tls]: <https://github.com/XTLS/Xray-examples/blob/97d7f1ee192e9bb3bf07f165ee1af8ca12214fa3/VLESS-TCP-XTLS-Vision-REALITY/config_server.jsonc#L22>
 
