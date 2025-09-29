@@ -19,7 +19,19 @@ data:
         "queryStrategy": {{ .Values.dnsQueryStrategy | default "UseIPv4" | quote }}
       },
       "outbounds": [
-        { "tag": "direct", "protocol": "freedom" }
+        {
+          "tag": "direct",
+          "protocol": "freedom"
+        },
+        {
+          "tag": "blackhole",
+          "protocol": "blackhole"
+        },
+        {
+          "tag": "dns",
+          "protocol": "dns",
+          "settings": { "port": 53 }
+        }
       ],
       "inbounds": [
         {
@@ -60,5 +72,34 @@ data:
             {{- end }}
           }
         }
-      ]
+      ],
+      "routing": {
+        "domainStrategy": "IPOnDemand",
+        "domainMatcher": "hybrid",
+        "rules": [
+          {
+            "type": "field",
+            "outboundTag": "freedom",
+            "ip": ["127.0.0.1"],
+            "port": "443,80,53"
+          },
+          {
+            "type": "field",
+            "port": 53,
+            "network": "tcp,udp",
+            "outboundTag": "dns"
+          },
+          {
+            "type": "field",
+            "port": 443,
+            "network": "udp",
+            "outboundTag": "blackhole"
+          },
+          {
+            "type": "field",
+            "port": "0-65535",
+            "outboundTag": "freedom"
+          }
+        ]
+      }
     }
