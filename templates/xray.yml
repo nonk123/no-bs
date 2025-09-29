@@ -15,7 +15,7 @@ spec:
       labels:
         name: {{ .Release.Name }}-no-bs-xray
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/server-config.yml") . | sha256sum }}
+        reroll: {{ randAlphaNum 5 | quote }}
     spec:
       terminationGracePeriodSeconds: 10
       tolerations: # see: <https://kubernetes.io/docs/concepts/workloads/controllers/daemonset>
