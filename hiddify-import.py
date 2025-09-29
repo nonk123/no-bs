@@ -7,5 +7,5 @@ if __name__ != "__main__":
 obj = json.load(sys.stdin)
 print("users:")
 for user in obj["users"]:
-    print("  - id:", user["uuid"])
+    print(f"  - id: {user["uuid"]} # {user["name"]}")
 sys.exit(0)
