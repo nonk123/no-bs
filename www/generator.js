@@ -6,8 +6,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const publicKey = document.getElementById("public-key").value;
 
     if (!privateKey || !publicKey) randomizeKeyPair();
-    generateAll();
+    syncUsersTable();
 });
+
+function getUsersDb() {
+    if (!localStorage.getItem("users")) localStorage.users = JSON.stringify([]);
+    return JSON.parse(localStorage.users);
+}
+
+function setUsersDb(users) {
+    localStorage.users = JSON.stringify(users);
+}
 
 function usersTable() {
     return document.querySelector("#users > tbody");
@@ -17,17 +26,19 @@ function generateUuid() {
     return window.crypto.randomUUID();
 }
 
-function makeUuidCell(row) {
+function makeUuidCell(id) {
     const cell = document.createElement("td");
-    cell.textContent = generateUuid();
+    cell.textContent = id;
     return cell;
 }
 
-function makeDeleteCell(row) {
+function makeDeleteCell(row, id) {
     const button = document.createElement("button");
     button.addEventListener("click", () => {
-        usersTable().removeChild(row);
-        generateAll();
+        const users = getUsersDb();
+        users.splice(users.indexOf(id), 1);
+        setUsersDb(users);
+        syncUsersTable();
     });
     button.textContent = "🗑️";
 
@@ -36,15 +47,25 @@ function makeDeleteCell(row) {
     return cell;
 }
 
-function addUser() {
-    const row = document.createElement("tr");
-    row.append(
-        makeDeleteCell(row),
-        makeUuidCell(row),
-        document.createElement("td")
-    );
-    usersTable().appendChild(row);
+function syncUsersTable() {
+    usersTable().innerHTML = "";
+    for (const id of getUsersDb()) {
+        const row = document.createElement("tr");
+        row.append(
+            makeDeleteCell(row, id),
+            makeUuidCell(id),
+            document.createElement("td")
+        );
+        usersTable().appendChild(row);
+    }
     generateAll();
+}
+
+function addUser() {
+    let users = getUsersDb();
+    users = users.concat([generateUuid()]);
+    setUsersDb(users);
+    syncUsersTable();
 }
 
 function toBase64(bytes) {
