@@ -26,7 +26,7 @@ All in all, your `values.yml` should look like [the provided example](values.exa
 ```yml
 logLevel: info
 port: 443
-realityTarget: https://presearch.com
+realityTarget: presearch.com:443
 realityServerName: presearch.com
 privateKey: qDP05W-71C8VdIsVqmOsMa0CXBDFzG7e36hBZNDkAmY # xray x25519
 users:
