@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-no-bs-config
 data:
-  server.json: |
+  xray.json: |
     {
       "log": {
         "loglevel": {{ .Values.logLevel | default "critical" | quote }}
@@ -38,14 +38,15 @@ data:
             "realitySettings": {
               {{ if .Values.debugReality }}"show": true,{{ end }}
               "dest": {{ required "REALITY needs a spoofing target to work" .Values.realityTarget | quote }},
-              "serverNames": [ {{ .Values.realityServerName | default .Values.realityTarget | quote }} ],
+              "serverNames": [
+                {{ required  "REALITY server name needs to be specified explicitly as it could be different from the spoofing target's hostname" .Values.realityServerName | quote }}
+              ],
               "privateKey": {{ required "You must specify a private key for REALITY" .Values.privateKey | quote }},
-              "shortIds": [""],
-              "xver": 0
+              "shortIds": ["", "12345678"]
             },
             "sockopt": {
-                "acceptProxyProtocol": true,
-                "tcpFastOpen": true
+              "acceptProxyProtocol": true,
+              "tcpFastOpen": true
             }
           }
         }
