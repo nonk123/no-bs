@@ -20,8 +20,7 @@ data:
       ],
       "inbounds": [
         {
-          "listen": "0.0.0.0",
-          "port": {{ required "You must specify an inbound port" .Values.port }},
+          "listen": "@@reality-in",
           "protocol": "vless",
           "settings": {
             "decryption": "none",
@@ -37,10 +36,8 @@ data:
             "security": "reality",
             "realitySettings": {
               {{ if .Values.debugReality }}"show": true,{{ end }}
-              "dest": {{ required "REALITY needs a spoofing target to work" .Values.realityTarget | quote }},
-              "serverNames": [
-                {{ required  "REALITY server name needs to be specified explicitly as it could be different from the spoofing target's hostname" .Values.realityServerName | quote }}
-              ],
+              "dest": "{{ required "REALITY needs a spoofing target to work" .Values.realityTarget }}:443",
+              "serverNames": [{{ .Values.realityServerName | default .Values.realityTarget | quote }}],
               "privateKey": {{ required "You must specify a private key for REALITY" .Values.privateKey | quote }},
               "shortIds": ["", "12345678"]
             },
@@ -51,8 +48,31 @@ data:
           },
           "sniffing": {
             "enabled": true,
-            "destOverride": [ "http", "tls", "quic"]
+            "destOverride": ["http", "tls", "quic"]
           }
         }
       ]
     }
+  # NOTE: I have no idea what any of this does, I just adapted it from my Hiddify configuration:
+  haproxy.cfg: |
+    global
+      limited-quic
+    defaults
+      log global
+      mode tcp
+      retry-on all-retryable-errors
+      timeout connect 5s
+      timeout client 50s
+      timeout client-fin 50s
+      timeout server 50s
+      timeout tunnel 1h
+      default-server init-addr none inter 15s fastinter 2s downinter 5s rise 3 fall 3
+    frontend https-in
+      bind :{{ required "You must specify an inbound port" .Values.port }},:::{{ .Values.port }} v4v6 tfo
+      tcp-request inspect-delay 5s
+      tcp-request content accept if { req.ssl_hello_type 1 }
+      acl tls1_2 req.ssl_ver 3.3
+      acl tls1_3 req.ssl_ver 3.4
+      use_backend reality-tcp if { req.ssl_sni -i {{ .Values.realityTarget }}  }
+    backend reality-tcp
+      server xray abns@reality-in send-proxy-v2

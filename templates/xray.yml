@@ -1,6 +1,8 @@
-{{ $defaultVersion := "25.9.11" }}
-{{ $cfgDir := "/etc/xray" }}
-{{ $cfgFile := "config.json" }}
+{{ $xrayCfgDir := "/etc/xray" }}
+{{ $xrayCfgFile := "config.json" }}
+
+{{ $haproxyCfgDir := "/etc/haproxy" }}
+{{ $haproxyCfgFile := "xray.cfg" }}
 
 apiVersion: apps/v1
 kind: DaemonSet
@@ -27,8 +29,15 @@ spec:
           effect: NoSchedule
       containers:
         - name: no-bs-xray
-          image: ghcr.io/xtls/xray-core:{{ .Values.XrayVersion | default $defaultVersion }}
-          args: [-c, {{ print $cfgDir "/" $cfgFile | quote }}]
+          image: ghcr.io/xtls/xray-core:{{ .Values.XrayVersion | default "25.9.11" }}
+          args: [-c, {{ print $xrayCfgDir "/" $xrayCfgFile | quote }}]
+          volumeMounts:
+            - name: xray-config
+              mountPath: {{ $xrayCfgDir | quote }}
+              readOnly: true
+        - name: no-bs-haproxy
+          image: haproxy:{{ .Values.haproxyVersion | default "3.2" }}
+          args: [-f, {{ print $haproxyCfgDir "/" $haproxyCfgFile | quote }}]
           ports:
             - containerPort: {{ .Values.port }}
               hostPort: {{ .Values.port }}
@@ -37,16 +46,22 @@ spec:
               hostPort: {{ .Values.port }}
               protocol: UDP
           volumeMounts:
-            - name: config
-              mountPath: {{ $cfgDir | quote }}
+            - name: haproxy-config
+              mountPath: {{ $haproxyCfgDir | quote }}
               readOnly: true
       volumes:
-        - name: config
+        - name: xray-config
           configMap:
             name: {{ .Release.Name }}-no-bs-config
             items:
               - key: xray.json
-                path: {{ $cfgFile | quote }}
+                path: {{ $xrayCfgFile | quote }}
+        - name: haproxy-config
+          configMap:
+            name: {{ .Release.Name }}-no-bs-config
+            items:
+              - key: haproxy.cfg
+                path: {{ $haproxyCfgFile | quote }}
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
