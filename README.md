@@ -48,7 +48,7 @@ Once it's up, configure your [Xray client of choice](https://github.com/XTLS/Xra
 
 ### Excluding Nodes from VPN hosting
 
-You can exclude a node from hosting no-bs by adding label `no-bs=cap`:
+You can exclude a node from hosting no-bs by giving it a `no-bs=cap` label:
 
 ```sh
 kubectl label nodes <your-node-name> no-bs=cap
