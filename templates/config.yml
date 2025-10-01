@@ -6,7 +6,17 @@ data:
   xray.json: |
     {
       "log": {
-        "loglevel": {{ .Values.logLevel | default "critical" | quote }}
+        {{ if .Values.debugLogging }}
+        "loglevel": "debug"
+        {{ else }}
+        "loglevel": "critical",
+        "output": "none",
+        "error": "none",
+        "access": "none",
+        "dnsLog": false,
+        "logid": true,
+        "header": true
+        {{ end }}
       },
       "dns": {
         "servers": ["1.1.1.1", "localhost"],

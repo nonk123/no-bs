@@ -24,7 +24,6 @@ Once you have K3S or another K8S distribution running, you will need to write a 
 All in all, your `values.yml` should look like [the provided example](values.example.yml):
 
 ```yml
-logLevel: info
 port: 443
 realityTarget: presearch.com
 privateKey: qDP05W-71C8VdIsVqmOsMa0CXBDFzG7e36hBZNDkAmY # xray x25519

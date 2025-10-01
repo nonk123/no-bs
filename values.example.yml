@@ -1,4 +1,3 @@
-logLevel: info
 port: 443
 realityTarget: presearch.com
 privateKey: qDP05W-71C8VdIsVqmOsMa0CXBDFzG7e36hBZNDkAmY # xray x25519
