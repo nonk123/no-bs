@@ -45,7 +45,7 @@ data:
           "streamSettings": {
             "security": "reality",
             "realitySettings": {
-              {{ if .Values.debugReality }}"show": true,{{ end }}
+              {{ if .Values.debugLogging }}"show": true,{{ end }}
               "dest": "{{ required "REALITY needs a spoofing target to work" .Values.realityTarget }}:443",
               "serverNames": [{{ .Values.realityServerName | default .Values.realityTarget | quote }}],
               "privateKey": {{ required "You must specify a private key for REALITY" .Values.privateKey | quote }},
