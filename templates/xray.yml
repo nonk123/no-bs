@@ -29,8 +29,7 @@ spec:
           effect: NoSchedule
       containers:
         - name: no-bs-xray
-          image: ghcr.io/xtls/xray-core:{{ .Values.XrayVersion | default "25.9.11" }}
-          args: [-c, {{ print $xrayCfgDir "/" $xrayCfgFile | quote }}]
+          image: teddysun/xray:{{ .Values.XrayVersion | default "25.9.11" }}
           volumeMounts:
             - name: xray-config
               mountPath: {{ $xrayCfgDir | quote }}
