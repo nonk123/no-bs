@@ -36,7 +36,7 @@ spec:
               readOnly: true
         - name: no-bs-haproxy
           image: haproxy:{{ .Values.haproxyVersion | default "3.2" }}
-          args: [-f, {{ print $haproxyCfgDir "/" $haproxyCfgFile | quote }}]
+          args: [-W, -db, -f, {{ print $haproxyCfgDir "/" $haproxyCfgFile | quote }}]
           ports:
             - containerPort: {{ .Values.port }}
               hostPort: {{ .Values.port }}
