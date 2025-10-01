@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
     for (const elt of document.querySelectorAll("#values-yml-inputs > input"))
-        elt.addEventListener("input", generateAll);
+        elt.addEventListener("input", updateAllOutputs);
 
     const privateKey = document.getElementById("private-key").value;
     const publicKey = document.getElementById("public-key").value;
@@ -16,6 +16,7 @@ function getUsersDb() {
 
 function setUsersDb(users) {
     localStorage.users = JSON.stringify(users);
+    syncUsersTable();
 }
 
 function usersTable() {
@@ -38,7 +39,6 @@ function makeDeleteCell(id) {
         const users = getUsersDb();
         users.splice(users.indexOf(id), 1);
         setUsersDb(users);
-        syncUsersTable();
     });
     button.textContent = "🗑️";
 
@@ -58,14 +58,13 @@ function syncUsersTable() {
         );
         usersTable().appendChild(row);
     }
-    generateAll();
+    updateAllOutputs();
 }
 
 function addUser() {
     let users = getUsersDb();
     users = users.concat([generateUuid()]);
     setUsersDb(users);
-    syncUsersTable();
 }
 
 function toBase64(bytes) {
@@ -93,7 +92,7 @@ async function randomizeKeyPair() {
         new Uint8Array(derived)
     );
 
-    generateAll();
+    updateAllOutputs();
 }
 
 function getVlessUrl(id) {
@@ -124,9 +123,7 @@ function copyCustomVlessUrl() {
     navigator.clipboard.writeText(link);
 }
 
-function generateAll() {
-    updateCustomVlessUrl();
-
+function updateValuesYml() {
     const port = document.getElementById("port").value;
     const privateKey = document.getElementById("private-key").value;
 
@@ -163,4 +160,9 @@ function generateAll() {
     }
 
     document.getElementById("values-yml-output").value = yml;
+}
+
+function updateAllOutputs() {
+    updateCustomVlessUrl();
+    updateValuesYml();
 }
