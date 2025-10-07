@@ -27,13 +27,13 @@ function generateUuid() {
     return window.crypto.randomUUID();
 }
 
-function makeUuidCell(id) {
+function makeUserIdCell(id) {
     const cell = document.createElement("td");
     cell.textContent = id;
     return cell;
 }
 
-function makeDeleteCell(id) {
+function makeDeleteUserButton(id) {
     const button = document.createElement("button");
     button.addEventListener("click", () => {
         const users = getUsersDb();
@@ -52,9 +52,9 @@ function syncUsersTable() {
     for (const id of getUsersDb()) {
         const row = document.createElement("tr");
         row.append(
-            makeDeleteCell(id),
-            makeUuidCell(id),
-            document.createElement("td")
+            makeDeleteUserButton(id),
+            makeUserIdCell(id),
+            document.createElement("td") // used in `updateValuesYml`
         );
         usersTable().appendChild(row);
     }
