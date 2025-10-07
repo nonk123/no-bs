@@ -106,8 +106,7 @@ function getVlessUrl(id) {
 
     const realityHostname = new URL(realityTarget).hostname;
     let params = "encryption=none&type=tcp&alpn=http%2F1.1&fp=chrome";
-    params = `${params}&headerType=none&sid=`;
-    params = `${params}&sni=${realityServerName}&host=${realityHostname}&bangs`;
+    params = `${params}&headerType=none&sni=${realityServerName}&host=${realityHostname}`;
     params = `${params}&flow=xtls-rprx-vision&security=reality&pbk=${publicKey}`;
     const shebang = `${host}:${port}/?${params}`;
     return `vless://${id}@${shebang}`;
