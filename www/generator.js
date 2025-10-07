@@ -100,13 +100,9 @@ function getVlessUrl(id) {
     const port = document.getElementById("port").value;
     const publicKey = document.getElementById("public-key").value;
     const realityTarget = document.getElementById("reality-target").value;
-    const realityServerName = document.getElementById(
-        "reality-server-name"
-    ).value;
 
-    const realityHostname = new URL(realityTarget).hostname;
     let params = "encryption=none&type=tcp&alpn=http%2F1.1&fp=chrome";
-    params = `${params}&headerType=none&sni=${realityServerName}&host=${realityHostname}`;
+    params = `${params}&headerType=none&sni=${realityTarget}&host=${realityTarget}`;
     params = `${params}&flow=xtls-rprx-vision&security=reality&pbk=${publicKey}`;
     const shebang = `${host}:${port}/?${params}`;
     return `vless://${id}@${shebang}`;
@@ -125,16 +121,12 @@ function copyCustomVlessUrl() {
 function updateValuesYml() {
     const port = document.getElementById("port").value;
     const privateKey = document.getElementById("private-key").value;
-
     const realityTarget = document.getElementById("reality-target").value;
-    const realityServerName = document.getElementById(
-        "reality-server-name"
-    ).value;
 
     let yml = "logLevel: info\n";
     yml += `port: ${port}\n`;
-    yml += `realityTarget: ${realityTarget}\n`;
-    yml += `realityServerName: ${realityServerName}\n`;
+    yml += `realityTarget: ${realityTarget}:443\n`;
+    yml += `realityServerName: ${realityTarget}\n`;
     yml += `privateKey: ${privateKey}\n`;
     yml += "users:" + (usersTable().children.length ? "\n" : " []");
 
