@@ -1,4 +1,7 @@
 $width: 680px;
+$black: rgb(12, 12, 12);
+$white: rgb(232, 232, 232);
+$accent: rgb(12, 96, 12);
 
 :root {
     color-scheme: only light;
@@ -16,6 +19,8 @@ html {
 
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: $black;
+    background: $white;
     min-height: 100vh;
 }
 
@@ -88,6 +93,17 @@ h1 {
 #title {
     font-size: 2em;
     font-weight: bold;
+}
+
+a,
+a:visited {
+    color: inherit;
+}
+
+header,
+footer {
+    color: $white;
+    background: $accent;
 }
 
 header,
